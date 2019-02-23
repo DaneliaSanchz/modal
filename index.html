@@ -15,7 +15,7 @@
     }
 
     .btn {
-      text-aling: center;
+      text-align: center;
       padding: .6em .8em .8em;
       border: none;
       color: white;
@@ -36,6 +36,10 @@
     .btn.warning {
       background: #ff463b;
     }
+    .btn.close {
+      background: #ff463b;
+      float: right;
+    }
 
     .btn:active {
       transform: scale(.9);
@@ -54,6 +58,14 @@
       transition: 1s;
       opacity: 0;
       visibility: hidden;
+    }
+
+    .header {
+      width: 1280px;
+      height: 300px;
+      position: absolute;
+      top: 0;
+      cursor: pointer;
     }
 
     .overlay.active {
@@ -107,14 +119,18 @@
 </head>
 <body>
   <img src="platzi.png" alt="">
-  <div class="overlay active" id="overlay">
+  <div class="header" id="header"></div>
+  <div class="overlay" id="overlay">
     <div class="modal" id="modal">
+      <div>
+        <button class="btn close" id="close-modal">X</button>
+      </div>
       <h1>Atención</h1>
       <p>Estás a punto de crear una ventana de modal muy guay | cool | chevere</p>
       <p>te gustó?</p>
       <div class="modal-buttons">
         <button class="btn primary" id="hide-modal">Sí, está chido</button>
-        <button class="btn warning">No, :(</button>
+        <button class="btn warning" id="no-button">No, :(</button>
       </div>
     </div>
   </div>
@@ -122,10 +138,39 @@
     const $hideButton = document.getElementById('hide-modal');
     const $modal = document.getElementById('modal');
     const $overlay = document.getElementById('overlay');
+    const $closeButton = document.getElementById('close-modal');
+    const $noButton = document.getElementById('no-button');
+    const $header = document.getElementById('header');
 
     $hideButton.addEventListener('click', () => {
       $modal.style.animation = 'modalOut .8s forwards';
       $overlay.classList.remove('active');
+    });
+
+    $closeButton.addEventListener('click', () => {
+      $modal.style.animation = 'modalOut .8s forwards';
+      $overlay.classList.remove('active');
+    });
+
+    $noButton.addEventListener('click', () => {
+      $modal.style.animation = 'modalOut .8s forwards';
+      $overlay.classList.remove('active');
+    });
+
+    $overlay.addEventListener('click', () => {
+      $modal.style.animation = 'modalOut .8s forwards';
+      $overlay.classList.remove('active');
+    });
+
+    $header.addEventListener('click', () => {
+      if($overlay.classList.contains('active'))
+      {
+        $overlay.classList.remove('active');
+      }
+      else {
+        $modal.style.animation = 'modalIn .8s forwards';
+        $overlay.classList.add('active');
+      }
     });
   </script>
 </body>
